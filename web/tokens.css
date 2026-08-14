@@ -1,0 +1,151 @@
+/* ORTHO Design Tokens — CSS custom properties */
+/* Parity: Swift ORTHODesignSystem <-> web/tokens.css — same names, same values */
+/* Host: Windows 11. No AppKit/Metal. Direct2D values mirrored as CSS for web surfaces. */
+
+:root {
+  /* Color — light scheme (default) */
+  --ortho-bg-primary: #FFFFFF;
+  --ortho-bg-secondary: #F5F5F7;
+  --ortho-label-primary: #1D1D1F;
+  --ortho-label-secondary: #86868B;
+  --ortho-label-tertiary: #AEAEB2;
+  --ortho-accent-primary: #0066CC;
+  --ortho-separator: #D2D2D7;
+  --ortho-destructive: #FF3B30;
+  --ortho-success: #34C759;
+  --ortho-attention: #FF9F0A;
+
+  /* Spacing — ORTHOSpacing */
+  --ortho-spacing-xxs: 4px;
+  --ortho-spacing-xs: 8px;
+  --ortho-spacing-sm: 12px;
+  --ortho-spacing-md: 16px;
+  --ortho-spacing-lg: 24px;
+  --ortho-spacing-xl: 32px;
+  --ortho-spacing-xxl: 48px;
+  --ortho-spacing-xxxl: 64px;
+
+  /* Radius — ORTHORadius */
+  --ortho-radius-control-small: 6px;
+  --ortho-radius-control-regular: 8px;
+  --ortho-radius-panel: 10px;
+  --ortho-radius-tile: 12px;
+  --ortho-radius-modal: 18px;
+  --ortho-radius-popover: 10px;
+
+  /* Shadow — ORTHOShadowTokens */
+  --ortho-shadow-none: none;
+  --ortho-shadow-subtle: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.08);
+  --ortho-shadow-floating: 0 4px 12px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+  --ortho-shadow-modal: 0 16px 40px rgba(0,0,0,0.20), 0 4px 12px rgba(0,0,0,0.12);
+
+  /* Material — ORTHOMaterials (tint opacity + blur) */
+  --ortho-material-surface-base: opaque;
+  --ortho-material-surface-secondary: opaque;
+  --ortho-material-glass-thin: blur(20px) saturate(1.2);
+  --ortho-material-glass-regular: blur(30px) saturate(1.3);
+  --ortho-material-glass-prominent: blur(40px) saturate(1.4);
+  --ortho-material-glass-chrome: blur(60px) saturate(1.5);
+  --ortho-material-glass-thin-opacity: 0.72;
+  --ortho-material-glass-regular-opacity: 0.76;
+  --ortho-material-glass-prominent-opacity: 0.82;
+  --ortho-material-glass-chrome-opacity: 0.88;
+
+  /* Motion — ORTHOMotion */
+  --ortho-motion-instant: 0ms linear;
+  --ortho-motion-micro: 100ms cubic-bezier(0.2, 0, 0, 1);
+  --ortho-motion-standard: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ortho-motion-emphasized: 400ms cubic-bezier(0.2, 0, 0, 1);
+  --ortho-motion-spring: 550ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Typography — ORTHOTypography (size / weight / line-height / letter-spacing / family) */
+  --ortho-font-display-size: 48px;
+  --ortho-font-display-weight: 700;
+  --ortho-font-display-line-height: 52px;
+  --ortho-font-display-family: "SF Pro Display", system-ui, sans-serif;
+  --ortho-font-modal-headline-size: 32px;
+  --ortho-font-modal-headline-weight: 700;
+  --ortho-font-modal-headline-line-height: 36px;
+  --ortho-font-modal-headline-family: "SF Pro Display", system-ui, sans-serif;
+  --ortho-font-topic-label-size: 12px;
+  --ortho-font-topic-label-weight: 600;
+  --ortho-font-topic-label-line-height: 16px;
+  --ortho-font-topic-label-letter-spacing: 0.06em;
+  --ortho-font-topic-label-family: "SF Pro Text", system-ui, sans-serif;
+  --ortho-font-title1-size: 28px;
+  --ortho-font-title1-weight: 700;
+  --ortho-font-title1-line-height: 34px;
+  --ortho-font-title2-size: 22px;
+  --ortho-font-title2-weight: 700;
+  --ortho-font-title2-line-height: 28px;
+  --ortho-font-title3-size: 20px;
+  --ortho-font-title3-weight: 600;
+  --ortho-font-title3-line-height: 25px;
+  --ortho-font-headline-size: 17px;
+  --ortho-font-headline-weight: 600;
+  --ortho-font-headline-line-height: 22px;
+  --ortho-font-body-size: 17px;
+  --ortho-font-body-weight: 400;
+  --ortho-font-body-line-height: 25px;
+  --ortho-font-callout-size: 16px;
+  --ortho-font-callout-line-height: 21px;
+  --ortho-font-caption-size: 12px;
+  --ortho-font-caption-line-height: 16px;
+  --ortho-font-caption2-size: 11px;
+  --ortho-font-caption2-line-height: 13px;
+  --ortho-font-technical-size: 13px;
+  --ortho-font-technical-family: "SF Mono", ui-monospace, monospace;
+  --ortho-font-technical-line-height: 18px;
+}
+
+/* Dark scheme — ORTHOColor dark variants */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ortho-bg-primary: #000000;
+    --ortho-bg-secondary: #1D1D1F;
+    --ortho-label-primary: #F5F5F7;
+    --ortho-label-secondary: #A1A1A6;
+    --ortho-label-tertiary: #6E6E73;
+    --ortho-accent-primary: #2997FF;
+    --ortho-separator: #424245;
+    --ortho-destructive: #FF453A;
+    --ortho-success: #30D158;
+    --ortho-attention: #FFD60A;
+  }
+}
+
+/* Explicit theme override for web surfaces that set data-theme */
+[data-theme="light"] {
+  --ortho-bg-primary: #FFFFFF;
+  --ortho-bg-secondary: #F5F5F7;
+  --ortho-label-primary: #1D1D1F;
+  --ortho-label-secondary: #86868B;
+  --ortho-label-tertiary: #AEAEB2;
+  --ortho-accent-primary: #0066CC;
+  --ortho-separator: #D2D2D7;
+  --ortho-destructive: #FF3B30;
+  --ortho-success: #34C759;
+  --ortho-attention: #FF9F0A;
+}
+[data-theme="dark"] {
+  --ortho-bg-primary: #000000;
+  --ortho-bg-secondary: #1D1D1F;
+  --ortho-label-primary: #F5F5F7;
+  --ortho-label-secondary: #A1A1A6;
+  --ortho-label-tertiary: #6E6E73;
+  --ortho-accent-primary: #2997FF;
+  --ortho-separator: #424245;
+  --ortho-destructive: #FF453A;
+  --ortho-success: #30D158;
+  --ortho-attention: #FFD60A;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ortho-motion-micro: 0ms linear;
+    --ortho-motion-standard: 0ms linear;
+    --ortho-motion-emphasized: 0ms linear;
+    --ortho-motion-spring: 0ms linear;
+  }
+}

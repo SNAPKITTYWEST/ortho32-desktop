@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ortho32.dev/schemas/theorem-result.schema.json",
+  "title": "ORTHO-32 Theorem Result",
+  "description": "Theorem verification result from Lean4 or HOL Light checker. Lean4 and HOL Light are always separate fields — never merged.",
+  "type": "object",
+  "required": ["id", "system", "status", "sourceFile"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "description": "Canonical theorem id e.g. ORTHO-32-BASIC-01" },
+    "system": { "type": "string", "enum": ["Lean4", "HOLLight"] },
+    "status": {
+      "type": "string",
+      "enum": ["verified", "crossVerified", "tested", "observed", "assumed", "unverified", "failed"],
+      "description": "Seven distinct verification states. verified != tested. Only verified/crossVerified are formally proved."
+    },
+    "sourceFile": { "type": "string" },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "sorryCount": { "type": "integer", "minimum": 0, "description": "Must be 0 for crossVerified status" }
+  }
+}

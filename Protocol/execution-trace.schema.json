@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ortho32.dev/schemas/execution-trace.schema.json",
+  "title": "ORTHO-32 Execution Trace",
+  "description": "Per-cycle execution trace from ORTHO-32. cycles fields are architectural integer cycles, never wall-clock milliseconds.",
+  "type": "object",
+  "required": ["records", "merkleRoot", "startCycle", "endCycle"],
+  "additionalProperties": false,
+  "properties": {
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cycles", "pc", "opcode", "traceHash"],
+        "properties": {
+          "cycles": { "type": "integer", "minimum": 0, "description": "ORTHO-32 architectural cycle number (uint64)" },
+          "pc": { "type": "integer", "minimum": 0, "description": "Program counter (uint64)" },
+          "opcode": { "type": "string" },
+          "mnemonic": { "type": "string" },
+          "summary": { "type": "string" },
+          "registerDeltaDescription": { "type": "string" },
+          "memoryAccessDescription": { "type": "string" },
+          "traceHash": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" }
+        }
+      }
+    },
+    "merkleRoot": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+    "startCycle": { "type": "integer", "minimum": 0 },
+    "endCycle": { "type": "integer", "minimum": 0 }
+  }
+}

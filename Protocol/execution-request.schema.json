@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ortho32.local/protocol/execution-request.schema.json",
+  "title": "ExecutionRequest",
+  "description": "Canonical JSON request for ORTHO-32 deterministic execution. Cycle N is an integer, never a wall-clock timestamp.",
+  "type": "object",
+  "required": ["command", "inputHash", "initialState", "instructionStream"],
+  "additionalProperties": false,
+  "properties": {
+    "command": {
+      "type": "string",
+      "enum": ["execute", "replay", "step", "runToCommit", "runToCompletion", "verify"]
+    },
+    "inputHash": {
+      "type": "string",
+      "description": "SHA-256 hex digest of canonical initialState + instructionStream + tensorInput + memoryImage + configuration",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "initialState": {
+      "type": "object",
+      "description": "InitialArchitecturalState at cycle 0",
+      "required": ["registers", "memory", "scoreboard", "scratchpad"],
+      "additionalProperties": false,
+      "properties": {
+        "registers": {
+          "type": "object",
+          "description": "Register file R0..R31, R0 hardwired zero",
+          "patternProperties": {
+            "^R([0-9]|[12][0-9]|3[01])$": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            }
+          },
+          "additionalProperties": false
+        },
+        "memory": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "description": "Word-addressed memory image wordAddress -> wordValue"
+        },
+        "scoreboard": {
+          "type": "object",
+          "description": "Hardware scoreboard busy bits",
+          "additionalProperties": false,
+          "properties": {
+            "busyRegisters": {
+              "type": "array",
+              "items": { "type": "string", "pattern": "^R([0-9]|[12][0-9]|3[01])$" }
+            }
+          }
+        },
+        "scratchpad": {
+          "type": "object",
+          "description": "Tensor scratchpad state",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          }
+        },
+        "pc": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Program counter word address"
+        }
+      }
+    },
+    "instructionStream": {
+      "type": "array",
+      "description": "InstructionSequence to execute deterministically",
+      "items": {
+        "type": "object",
+        "required": ["address", "encoding", "mnemonic"],
+        "additionalProperties": false,
+        "properties": {
+          "address": { "type": "integer", "minimum": 0 },
+          "encoding": { "type": "string", "pattern": "^0x[0-9a-fA-F]{8}$" },
+          "mnemonic": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "memoryImage": {
+      "type": "object",
+      "description": "Optional initial memory image overlay",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 4294967295
+      }
+    },
+    "tensorInput": {
+      "type": ["object", "null"],
+      "description": "TensorInput for f(x)=roll(x,1) tensor triu(ones(T,T))",
+      "properties": {
+        "dimensions": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "minItems": 2,
+          "maxItems": 3
+        },
+        "data": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "operandA": { "type": "array", "items": { "type": "number" } },
+        "operandB": { "type": "array", "items": { "type": "number" } }
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "maxCycles": { "type": "integer", "minimum": 1 },
+        "tensorContracts": {
+          "type": "object",
+          "properties": {
+            "tmulLatency": { "type": "integer", "const": 4 },
+            "tloadLatency": { "type": "integer", "const": 5 },
+            "tstoreLatency": { "type": "integer", "const": 5 },
+            "scratchpadLatency": { "type": "integer", "const": 2 },
+            "gemmTileLatency": { "type": "integer", "const": 768 }
+          }
+        }
+      }
+    },
+    "expectedInvariant": {
+      "type": ["string", "null"],
+      "description": "Expected output hash for invariant f(x)=roll(x,1) ⊗ triu(ones(T,T)) if known"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ortho32.dev/schemas/fabric-command.schema.json",
+  "title": "ORTHO-32 Fabric Host Command",
+  "description": "Host command submitted to ORTHO-32 fabric via ORTHOTransport. Windows wall-clock is separate from fabric cycles.",
+  "type": "object",
+  "required": ["opcode", "device", "address", "length", "sequence", "payloadHash"],
+  "additionalProperties": false,
+  "properties": {
+    "opcode": {
+      "type": "string",
+      "enum": ["execute", "step", "tensor", "probe", "reset", "attest", "tload", "tmul", "tstore"],
+      "description": "Fabric opcode"
+    },
+    "device": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Target device identifier"
+    },
+    "address": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "description": "Memory/register address (uint64)"
+    },
+    "length": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "description": "Payload length in bytes (uint32)"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615,
+      "description": "Monotonic host sequence number (uint64)"
+    },
+    "payloadHash": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$",
+      "description": "SHA-256 of payload, 64-char lowercase hex"
+    }
+  }
+}

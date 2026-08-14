@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ortho32.dev/schemas/seal-result.schema.json",
+  "title": "ORTHO-32 Seal Result",
+  "description": "WORM chain + RSA seal verification result. chainOk=false is a blocking failure.",
+  "type": "object",
+  "required": ["chainOk", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "chainOk": {
+      "type": "boolean",
+      "description": "false = BLOCKING failure. WORM chain broken. Must be surfaced as error, not hidden."
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "hash", "sigOk"],
+        "properties": {
+          "file": { "type": "string" },
+          "hash": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$", "description": "SHA-256 hex" },
+          "sigOk": { "type": "boolean" },
+          "predecessorHash": { "type": "string" },
+          "wormId": { "type": "string" },
+          "certificateFingerprint": { "type": "string" }
+        }
+      }
+    },
+    "error": { "type": "string" }
+  }
+}
