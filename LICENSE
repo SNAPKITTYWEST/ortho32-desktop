@@ -1,0 +1,66 @@
+TRI-LICENSE STRUCTURE
+=====================
+
+This project is available under THREE licensing options:
+
+1. Business Source License 1.1 (BSL-1.1)
+   - Source-available with commercial restrictions
+   - No managed service offerings at enterprise scale
+   - Converts to AGPL-3.0 after transition period (Change Date: 2028-08-15)
+
+2. GNU Affero General Public License v3.0 (AGPL-3.0)
+   - Strong network copyleft
+   - SaaS/network distribution triggers source disclosure
+   - All modifications must be AGPL-3.0
+
+3. Mozilla Public License 2.0 (MPL-2.0) + Commercial Dual License
+   - Weak copyleft (file-level)
+   - Can combine with proprietary code
+   - Modified files must remain MPL-2.0
+   - Commercial license available for copyleft bypass
+
+================================================================================
+
+WHICH LICENSE APPLIES?
+
+License selection is determined by use case. Use the policy engine:
+
+  https://github.com/SNAPKITTYWEST/license-policy-engine
+
+  swipl -q -t halt -f license_policy.pl -- select <your_use_case>
+
+Use cases:
+  - saas_wrapper → AGPL-3.0
+  - enterprise_restricted → BSL-1.1
+  - file_level_mod → MPL-2.0
+  - copyleft_bypass → Commercial
+  - open_source_redistribution → AGPL-3.0
+
+================================================================================
+
+ORTHO-32 ECOSYSTEM
+
+This repository is part of the ORTHO-32 deterministic processor ecosystem.
+All ORTHO-32 connected repositories share this tri-license structure.
+
+Ecosystem repos:
+  - ORTHO32 (ISA, RTL, Lean 4 proofs)
+  - ortho32-host (C#/.NET runtime spine)
+  - ortho32-desktop (Swift UI)
+  - ortho32-api (Python/FastAPI)
+  - ortho32-ai-gateway (MUMPS)
+  - ortho32-mcp (AWK MCP server)
+  - ortho32-sdk-java (JVM SDK)
+  - ortho32-isolation (Formal isolation proofs)
+
+================================================================================
+
+COPYRIGHT HOLDER
+
+Copyright (C) 2026 Bel Esprit D'Accord Irrevocable Trust
+SnapKitty Collective Limited (FLP)
+
+Contact: jessicalw34@gmail.com
+Web: https://github.com/SNAPKITTYWEST
+
+================================================================================
